@@ -29,6 +29,7 @@ function Stopwatch(elem) {
     var time = 0;
     var offset;
     var interval;
+    
 
     function update() {
         if (this.isOn) {
@@ -41,7 +42,6 @@ function Stopwatch(elem) {
         var now = Date.now();
         var timePassed = now - offset;
 
-        offset = now;
 
         return timePassed;
     }
@@ -49,7 +49,7 @@ function Stopwatch(elem) {
     function timeFormatter(time) {
         time = new Date(time);
 
-        var hour = time.getHours().toString();
+        var hour = time.getUTCHours().toString();
         var minutes = time.getMinutes().toString();
         var seconds = time.getSeconds().toString();
 
@@ -84,7 +84,6 @@ function Stopwatch(elem) {
 
     this.reset = function () {
         time = 0;
-        lapContainer.innerHTML = '';
         interval = null;
         this.isOn = false;
         update();
@@ -110,12 +109,9 @@ function stop() {
     StopBtn.classList.toggle("on")
     watch.stop();
 }
-
-function stopWhenOn() {
-    toggleBtn.textContent = 'Start';
-    toggleBtn.classList.toggle("on")
+function reset() {
+    resetBtn.classList.reset("on")
     watch.stop();
-    watch.reset();
 }
 
 toggleBtn.addEventListener('click', function () {
@@ -126,7 +122,7 @@ StopBtn.addEventListener('click', function () {
 });
 
 resetBtn.addEventListener('click', function () {
-    watch.isOn ? stopWhenOn() : watch.reset();
+    watch.reset();
     // stop();
 });
 
