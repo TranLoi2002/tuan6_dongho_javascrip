@@ -42,7 +42,7 @@ function Stopwatch(elem) {
         var now = Date.now();
         var timePassed = now - offset;
 
-
+        offset = now;
         return timePassed;
     }
 
